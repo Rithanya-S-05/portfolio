@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rithanya S | Developer Portfolio</title>
+<style>
+:root{--bg:#f7f8fc;--card:#fff;--text:#161a2b;--muted:#5d6480;--accent:#2563eb;--accent2:#0ea5e9;--border:#e3e6f1;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#131c30;--text:#eaf1fb;--muted:#9fb0cc;--accent:#60a5fa;--accent2:#38bdf8;--border:#22304d;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#131c30;--text:#eaf1fb;--muted:#9fb0cc;--accent:#60a5fa;--accent2:#38bdf8;--border:#22304d;color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:calc(70px + env(safe-area-inset-top,0px))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 5%;background:var(--bg);border-bottom:1px solid var(--border)}
+nav .logo{font-weight:800;font-size:1.2rem}nav .logo span{color:var(--accent)}
+nav .links{display:flex;gap:18px;font-size:.9rem;color:var(--muted);overflow-x:auto}
+nav button{background:none;border:1px solid var(--border);color:var(--text);border-radius:8px;padding:4px 9px;cursor:pointer}
+section{padding:64px 5%;max-width:1000px;margin:auto}
+h2{font-size:1.7rem;margin:0 0 6px}h2+p{color:var(--muted);margin:0 0 26px}
+.hero{padding-top:80px}
+.hero h1{font-size:clamp(2rem,6vw,3.4rem);line-height:1.15;margin:0 0 14px}
+.hero h1 span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--muted);max-width:560px}
+.btn{display:inline-block;padding:11px 22px;border-radius:10px;font-weight:600;margin:8px 10px 0 0;background:var(--accent);color:#fff}
+.btn.o{background:none;border:1px solid var(--border);color:var(--text)}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{background:var(--card);border:1px solid var(--border);border-radius:999px;padding:6px 16px;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.card h3{margin:0 0 4px}.card p{color:var(--muted);margin:6px 0 12px;font-size:.93rem}
+.tag{font-size:.75rem;color:var(--accent);margin-right:8px}
+.card a{color:var(--accent2);font-weight:600;font-size:.9rem;margin-right:12px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.filters button{border:1px solid var(--border);background:var(--card);color:var(--text);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filters button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+input,textarea{width:100%;padding:11px;margin-bottom:12px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font:inherit}
+footer{text-align:center;color:var(--muted);padding:30px 5%;border-top:1px solid var(--border);font-size:.85rem}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="#hero"><span id="logo"></span></a>
+  <div class="links"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#education">Education</a><a href="#contact">Contact</a></div>
+  <button id="theme" aria-label="Toggle theme">◐</button>
+</nav>
+
+<section class="hero" id="hero">
+  <h1>Hello, I'm <span id="name"></span>.</h1>
+  <p id="tagline"></p>
+  <a class="btn" href="#projects">Explore My Work</a><a class="btn o" id="mailBtn" href="#">Get in Touch</a>
+  <div class="chips" id="links" style="margin-top:22px"></div>
+</section>
+
+<section id="about"><h2>About Me</h2><p>A little about who I am.</p><div class="card" id="about-text"></div></section>
+<section id="skills"><h2>Technical Skills</h2><p>Technologies and tools I work with.</p><div class="chips" id="skill-list"></div></section>
+<section id="projects"><h2>Projects</h2><p>Things I have built.</p><div class="filters" id="filters"></div><div class="grid" id="project-list"></div></section>
+<section id="education"><h2>Education & Certifications</h2><p>My learning journey.</p><div class="grid" id="edu-list"></div></section>
+<section id="contact"><h2>Get in Touch</h2><p>Open to internships and collaborations.</p>
+  <div class="card" style="max-width:520px">
+    <input id="f-name" placeholder="Your Name"><input id="f-email" placeholder="Your Email"><textarea id="f-msg" rows="4" placeholder="Message"></textarea>
+    <a class="btn" id="send" href="#">Send Message</a>
+  </div>
+</section>
+<footer id="foot"></footer>
+
+<script>
+/* ====== EDIT ONLY THIS BLOCK ====== */
+const DATA = {
+  name: "Rithanya S",
+  role: "ECE Student & Aspiring Developer",
+  email: "rithanya15052000@gmail.com",
+  links: [["GitHub","https://github.com/Rithanya-S-05"],["LinkedIn","https://www.linkedin.com/in/rithanya-s-1a8503411"],["LeetCode","https://leetcode.com/u/Rithanya_2008"],["HackerRank","https://www.hackerrank.com/profile/rithanya15052000"]],
+  tagline: "I'm an ECE student at VSB College of Engineering Technical Campus, Coimbatore, who loves coding and problem solving. I code in C, C++, Python and Java, and I'm learning to build useful applications.",
+  about: "I am an Electronics and Communication Engineering student at VSB College of Engineering Technical Campus, Coimbatore (2025 – 2029), passionate about programming and problem solving. I practice regularly on LeetCode and HackerRank, and I'm eager to learn new technologies, build my first projects and grow into a confident developer.",
+  skills: ["C","C++","Python","Java","OOP","Problem Solving","Data Structures","SQL (Basics)","MySQL (Basics)","Git & GitHub"],
+  projects: [
+    {title:"Projects Coming Soon",cat:"Upcoming",desc:"I'm currently learning and building. My first projects will be added here soon.",tech:"In progress",live:"",repo:"https://github.com/Rithanya-S-05"}
+    
+    
+  ],
+  education: [
+    {t:"B.E. Electronics & Communication Engineering",s:"VSB College of Engineering Technical Campus, Coimbatore (2025 – 2029) · CGPA: 7.12 (after 2 semesters)"},
+    {t:"Higher Secondary (12th)",s:"Adharsh Vidhyalaya Matric Higher Secondary School, Palladam · 495 / 600"},
+    {t:"Secondary School (10th)",s:"Kannammal National School, Palladam · 373 / 500"},
+    {t:"NPTEL Online Certification",s:"Exam cleared"},
+    {t:"Coding Practice",s:"Solving problems on LeetCode and HackerRank"}
+  ]
+};
+/* ================================== */
+const $=id=>document.getElementById(id);
+document.title=DATA.name+" | "+DATA.role+" Portfolio";
+$("logo").textContent=DATA.name.split(" ")[0]+".";
+$("name").textContent=DATA.name;$("tagline").textContent=DATA.tagline;$("about-text").textContent=DATA.about;
+$("mailBtn").href="mailto:"+DATA.email;
+DATA.links.forEach(([n,u])=>{const a=document.createElement("a");a.className="chip";a.href=u;a.target="_blank";a.rel="noopener";a.textContent=n+" ↗";$("links").appendChild(a)});
+$("foot").textContent="© "+new Date().getFullYear()+" "+DATA.name+" | "+DATA.role;
+$("skill-list").innerHTML=DATA.skills.map(s=>`<span class="chip"></span>`).join("");
+[...$("skill-list").children].forEach((c,i)=>c.textContent=DATA.skills[i]);
+$("edu-list").innerHTML=DATA.education.map(()=>`<div class="card"><h3></h3><p></p></div>`).join("");
+[...$("edu-list").children].forEach((c,i)=>{c.querySelector("h3").textContent=DATA.education[i].t;c.querySelector("p").textContent=DATA.education[i].s});
+const cats=["All",...new Set(DATA.projects.map(p=>p.cat))];let cur="All";
+function render(){
+  $("filters").innerHTML="";
+  cats.forEach(c=>{const b=document.createElement("button");b.textContent=c;if(c===cur)b.className="on";b.onclick=()=>{cur=c;render()};$("filters").appendChild(b)});
+  $("project-list").innerHTML="";
+  DATA.projects.filter(p=>cur==="All"||p.cat===cur).forEach(p=>{
+    const d=document.createElement("div");d.className="card";
+    const h=document.createElement("h3");h.textContent=p.title;
+    const t=document.createElement("span");t.className="tag";t.textContent=p.tech;
+    const q=document.createElement("p");q.textContent=p.desc;
+    d.append(h,t,q);
+    if(p.live){const a=document.createElement("a");a.href=p.live;a.target="_blank";a.rel="noopener";a.textContent="Live Demo ↗";d.append(a)}
+    if(p.repo){const a=document.createElement("a");a.href=p.repo;a.target="_blank";a.rel="noopener";a.textContent="GitHub ↗";d.append(a)}
+    $("project-list").appendChild(d);
+  });
+}
+render();
+$("send").onclick=e=>{e.preventDefault();
+  const b=encodeURIComponent($("f-msg").value+"\n\n— "+$("f-name").value+" ("+$("f-email").value+")");
+  location.href="mailto:"+DATA.email+"?subject="+encodeURIComponent("Portfolio enquiry")+"&body="+b};
+$("theme").onclick=()=>{const r=document.documentElement;
+  const dark=r.dataset.theme?r.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;
+  r.dataset.theme=dark?"light":"dark"};
+</script>
+</body>
+</html>
